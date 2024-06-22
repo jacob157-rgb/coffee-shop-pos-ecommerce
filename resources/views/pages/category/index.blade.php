@@ -18,8 +18,14 @@
                         <td class="border"> {{ $loop->iteration }}</td>
                         <td class="border">{{ $row->category }}</td>
                         <td class="border text-center align-content-center p-2">
-                            <button class="rounded-md bg-green-500 text-white p-2">edit</button>
-                            <button class="rounded-md bg-red-500 text-white p-2">delete</button>
+                            <a href="/category/{{ $row->id }}/edit" title="Ubah Data">
+                                <button class="rounded-md bg-green-500 text-white p-2">edit</button>
+                            </a>
+                            <form method="POST" action="{{ route('category.destroy', $row->id) }}" style="display: inline-block;">
+                                @method('delete')
+                                @csrf
+                                <button class="rounded-md bg-red-500 text-white p-2">delete</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
