@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <h1>index</h1>
+    <h1>Halo Selamat Datang</h1>
 @endsection
