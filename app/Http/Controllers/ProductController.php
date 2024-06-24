@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -23,7 +24,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('pages.product.create');
+        $category_p = ProductCategory::orderBy('category', 'asc')->get();
+        return view('pages.product.create', [
+            'category' => $category_p
+        ]);
     }
 
     /**
@@ -31,7 +35,14 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'category_id' => 'required',
+            'product_name' => 'required|max:255',
+            'product_pict' => 'required',
+            'product_desc' => 'required',
+        ],);
+        Product::create($validatedData,);
+            return redirect('/product')->with('success', 'Data berhasil tersimpan');
     }
 
     /**
@@ -47,7 +58,12 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $product = Product::find($id);
+        $category_p = ProductCategory::orderBy('category', 'asc')->get();
+        return view('pages.product.edit', [
+            'edit' => $product,
+            'category' => $category_p
+        ]);
     }
 
     /**
@@ -55,7 +71,16 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // dd($request);
+        $rules = [
+            'category_id' => 'required',
+            'product_name' => 'required|max:255',
+            'product_pict' => 'required',
+            'product_desc' => 'required',
+        ];
+        $validatedData = $request->validate($rules);
+        Product::where('id', $id)->update($validatedData);
+        return redirect('/product');
     }
 
     /**
@@ -63,6 +88,8 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $product->delete();
+        return redirect('/product')->with('msgSuccess', 'Data berhasil dihapus');
     }
 }

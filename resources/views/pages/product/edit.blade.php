@@ -6,7 +6,8 @@
     Tambah Data Kategori
     </h3>
 </div>
-<form action="/product" method="post" enctype="multipart/form-data">
+<form action="/product/{{ $edit->id }}" method="post" enctype="multipart/form-data">
+    @method('put')
     @csrf
     <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
         <!-- ====== Form Elements Section Start -->
@@ -17,7 +18,7 @@
                     <div class="flex flex-col gap-5.5 p-6.5">
                         <div>
                             <label class="mb-3 block text-sm font-medium text-black dark:text-white">Foto Produk</label>
-                            <input type="file" name="product_pict" value="{{ old('product_pict') }}" class="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent font-normal outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:px-5 file:py-3 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-form-strokedark dark:file:bg-white/30 dark:file:text-white dark:focus:border-primary"/>
+                            <input type="file" name="product_pict" value="{{ old('product_pict', $edit->product_pict) }}" class="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent font-normal outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:px-5 file:py-3 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-form-strokedark dark:file:bg-white/30 dark:file:text-white dark:focus:border-primary"/>
                         </div>
                     </div>
                 </div>
@@ -30,7 +31,7 @@
                     <div>
                         <div class="w-full">
                             <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nama Produk</label>
-                            <input name="product_name" value="{{ old('product_name') }}" type="text" placeholder="Masukkan Nama Produk" class="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"/>
+                            <input name="product_name" value="{{ old('product_name', $edit->product_name) }}" type="text" placeholder="Masukkan Nama Produk" class="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"/>
                         </div>
                         <div>
                             <label class="mb-3 pt-4 block text-sm font-medium text-black dark:text-white">Kategori</label>
@@ -65,13 +66,13 @@
                 </div>
                 <div>
                     <label class="mb-3 mt-4 block text-sm font-medium text-black dark:text-white">Detail</label>
-                    <textarea name="product_desc" value="{{ old('product_desc') }}" rows="6" placeholder="Masukkan Detail Product" class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"></textarea>
+                    <textarea name="product_desc" value="{{ old('product_desc', $edit->product_desc) }}" rows="6" placeholder="Masukkan Detail Product" class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"></textarea>
                 </div>
                 <div class="pt-4">
                     <a href="{{ route('product.index') }}">
                         <button type="button" class="justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">Kembali</button>
                     </a>
-                    <button type="submit" class="justify-center rounded bg-success p-3 font-medium text-gray hover:bg-opacity-90">Simpan</button>
+                    <button type="submit" class="justify-center rounded bg-success p-3 font-medium text-gray hover:bg-opacity-90">Update</button>
                 </div>
             </div>
         </div>

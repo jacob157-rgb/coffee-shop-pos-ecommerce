@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProductcategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ProductSKU;
@@ -16,11 +17,7 @@ Route::get('/dashboard', function () {
 });
 Route::resource('category', ProductcategoryController::class);
 Route::resource('product', ProductController::class);
-
-
-Route::get('/user', function () {
-    return view('pages/user/index');
-});
+Route::resource('user', UserController::class);
 
 // Route::get('category/create', function() {
 //     ProductCategory::create([

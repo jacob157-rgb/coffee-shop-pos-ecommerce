@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -11,7 +12,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $user = User::orderBy('id','desc')->get();
+        return view('pages.user.index', [
+            'index' => $user
+        ]);
     }
 
     /**
@@ -19,7 +23,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.user.create');
     }
 
     /**
@@ -27,7 +31,13 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:255|unique:users',
+            'email' => 'required|max:255|unique:users',
+            'password' => 'required|max:255',
+        ],);
+        User::create($validatedData,);
+            return redirect('/user')->with('success', 'Data berhasil tersimpan');
     }
 
     /**
@@ -43,7 +53,10 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = User::find($id);
+        return view('pages.user.edit', [
+            'edit' => $user
+        ]);
     }
 
     /**
@@ -51,7 +64,15 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        
+        $rules = [
+            'name' => 'required|max:255|unique:users',
+            'email' => 'required|max:255|unique:users',
+            'password' => 'required|max:255',
+        ];
+        $validatedData = $request->validate($rules);;
+        User::where('id', $id)->update($validatedData);
+        return redirect('/user');
     }
 
     /**
@@ -59,6 +80,8 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
+        return redirect('/user')->with('msgSuccess', 'Data berhasil dihapus');
     }
 }

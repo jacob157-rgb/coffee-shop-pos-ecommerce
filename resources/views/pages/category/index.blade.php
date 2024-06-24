@@ -15,7 +15,7 @@
             <tbody>
                 @foreach ($index as $row)
                     <tr>
-                        <td class="border"> {{ $loop->iteration }}</td>
+                        <td class="border text-center"> {{ $loop->iteration }}</td>
                         <td class="border">{{ $row->category }}</td>
                         <td class="border text-center align-content-center p-2">
                             <a href="/category/{{ $row->id }}/edit" title="Ubah Data">
