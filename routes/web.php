@@ -33,6 +33,8 @@ Route::get('/forgot', function () {
 
 Route::controller(CategoryController::class)->group(function () {
     Route::get('/category', 'index')->name('category.index');
+    Route::get('/category/{id}', 'edit')->name('category.edit');
+    Route::delete('/category/{id}', 'destroy')->name('category.destroy');
 })->name('category');
 Route::controller(ProductController::class)->group(function () {
     Route::get('/product', 'index')->name('product.index');

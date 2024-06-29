@@ -10,11 +10,21 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $categories = Categories::orderBy('id', 'desc')->get();
-        return view('pages.dashboard.category.index', compact('categories'));
-    }
+    public function index(Request $request)
+{
+    $perPage = 10; // Jumlah item per halaman
+    $categories = Categories::orderBy('id', 'desc')->paginate($perPage);
+
+    // Menyediakan data pagination untuk view
+    $pagination = [
+        'currentPage' => $categories->currentPage(),
+        'lastPage' => $categories->lastPage(),
+        'path' => $request->url()
+    ];
+
+    return view('pages.dashboard.category.index', compact('categories', 'pagination'));
+}
+
 
     /**
      * Show the form for creating a new resource.
