@@ -1,263 +1,213 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <div class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+    <div>
         <!-- Card -->
         <div class="flex flex-col">
             <div class="-m-1.5 overflow-x-auto">
                 <div class="inline-block min-w-full p-1.5 align-middle">
                     <div
-                        class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
+                        class="overflow-hidden bg-white border border-gray-200 shadow-sm rounded-xl dark:border-neutral-700 dark:bg-neutral-900">
                         <!-- Header -->
                         <div
-                            class="grid gap-3 border-b border-gray-200 px-6 py-4 dark:border-neutral-700 md:flex md:items-center md:justify-between">
+                            class="grid gap-3 px-6 py-4 border-b border-gray-200 dark:border-neutral-700 md:flex md:items-center md:justify-between">
                             <!-- Input -->
                             <div class="sm:col-span-1">
-                                <label for="searchInput" class="sr-only">Search</label>
-                                <div class="relative">
-                                    <input type="text" id="searchInput" name="name"
-                                        class="block w-full rounded-lg border border-gray-200 px-3 py-2 ps-11 text-sm focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                                        placeholder="Search">
-                                    <div class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-4">
-                                        <svg class="size-4 text-gray-400 dark:text-neutral-500"
-                                            xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" viewBox="0 0 16 16">
-                                            <path
-                                                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                                        </svg>
+                                <form id="searchForm" action="{{ route('category.store') }}" method="POST">
+                                    @csrf
+                                    <label for="searchInput" class="sr-only">Search</label>
+                                    <div class="relative">
+                                        <input type="text" id="searchInput" name="name"
+                                            class="block w-full px-3 py-2 text-sm border border-gray-200 rounded-lg ps-11 focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                            placeholder="Search">
+                                        <div class="absolute inset-y-0 flex items-center pointer-events-none start-0 ps-4">
+                                            <svg class="text-gray-400 size-4 dark:text-neutral-500"
+                                                xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001a1.007 1.007 0 0 0-.073.072l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.072-.073zm-5.442 1.68a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z" />
+                                            </svg>
+                                        </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                             <!-- End Input -->
-
-                            <div class="sm:col-span-2 md:grow">
-                                <div class="flex justify-end gap-x-2">
-                                    <div class="relative inline-block [--placement:bottom-right]">
-                                        <a href=""
-                                            class="inline-flex items-center gap-x-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-800 shadow-sm hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800">
-                                            <svg class="size-5 flex-shrink-0" width="16" height="16"
-                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="size-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                            </svg>
-                                            Tambah
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+                            <button id="addCategoryBtn"
+                                class="inline-flex items-center justify-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-600 border border-transparent rounded-md shadow-sm gap-x-2 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-offset-2 dark:focus:ring-offset-neutral-900">
+                                Tambah Kategori
+                            </button>
                         </div>
                         <!-- End Header -->
 
                         <!-- Table -->
-                        <table id="dataTable" class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
-                            <thead class="bg-gray-50 dark:bg-neutral-800">
-                                <tr>
-                                    <th scope="col" class="px-6 py-3">
-                                        <div class="flex items-center">
-                                            <span
-                                                class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-neutral-200">
-                                                No.
-                                            </span>
-                                        </div>
-                                    </th>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700" id="categoryTable">
+                                <thead class="bg-gray-50 dark:bg-neutral-800">
+                                    <tr>
+                                        <th scope="col"
+                                            class="px-6 py-3 text-sm font-semibold text-left text-gray-900 dark:text-white">
+                                            No.
+                                        </th>
+                                        <th scope="col"
+                                            class="px-6 py-3 text-sm font-semibold text-left text-gray-900 dark:text-white">
+                                            Kategori
+                                        </th>
+                                        <th scope="col"
+                                            class="px-6 py-3 text-sm font-semibold text-right text-gray-900 dark:text-white">
+                                            Aksi
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200 dark:divide-neutral-700" id="categoryTableBody">
+                                    @include('partials.category_table', ['categories' => $categories])
+                                </tbody>
+                            </table>
+                            <!-- End Table -->
 
-                                    <th scope="col" class="px-6 py-3">
-                                        <div class="flex items-center justify-start">
-                                            <span
-                                                class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-neutral-200">
-                                                Nama Kategori
-                                            </span>
-                                        </div>
-                                    </th>
+                            <!-- Footer -->
+                            <div
+                                class="grid gap-3 px-6 py-4 border-t border-gray-200 dark:border-neutral-700 md:flex md:items-center md:justify-between">
+                                <div class="max-w-sm space-y-3">
+                                    <select id="pageSizeSelect"
+                                        class="block w-full px-3 py-2 text-sm border border-gray-200 rounded-lg pe-9 focus:border-blue-500 focus:ring-blue-500 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400">
+                                        <option>5</option>
+                                        <option selected>10</option>
+                                        <option>20</option>
+                                    </select>
+                                </div>
 
-                                    <th scope="col" class="px-6 py-3">
-                                        <div class="flex items-center justify-end">
-                                            <span
-                                                class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-neutral-200">
-                                                Aksi
-                                            </span>
-                                        </div>
-                                    </th>
-                                </tr>
-                            </thead>
-
-                            <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
-                                @if ($categories->isEmpty())
-                                    <td colspan="3" class="whitespace-nowrap px-6 py-2 text-center">
-                                        <span class="text-sm text-gray-600 dark:text-neutral-400">Data kategori kosong,
-                                            silahkan tambahkan kategori.</span>
-                                    </td>
-                                @else
-                                    @foreach ($categories as $index => $row)
-                                        <tr>
-                                            <td class="whitespace-nowrap px-6 py-2">
-                                                <div>
-                                                    <p class="text-smdecoration-2 hover:underline">
-                                                        {{ $index + 1 }}.</p>
-                                                </div>
-                                            </td>
-                                            <td class="whitespace-nowrap px-6 py-2 text-center">
-                                                <div class="flex items-center justify-start">
-                                                    <span
-                                                        class="text-sm text-gray-600 dark:text-neutral-400">{{ $row->name }}</span>
-                                                </div>
-                                            </td>
-                                            <td class="whitespace-nowrap px-6 py-2">
-                                                <div class="flex justify-end">
-                                                    <div
-                                                        class="group inline-flex items-center divide-x divide-gray-300 rounded-lg border border-gray-300 bg-white shadow-sm transition-all dark:divide-neutral-700 dark:border-neutral-700 dark:bg-neutral-700">
-                                                        <div class="hs-tooltip inline-block">
-                                                            <a href="{{ route('category.edit', $row->id) }}"
-                                                                class="hs-tooltip-toggle inline-flex items-center justify-center gap-x-2 rounded-s-md bg-white px-2 py-1.5 text-sm font-semibold text-gray-800 shadow-sm hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800"
-                                                                href="#">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                                    viewBox="0 0 24 24" stroke-width="1.5"
-                                                                    stroke="blue" class="size-4">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                                        d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                                                                </svg>
-                                                                <span
-                                                                    class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible invisible absolute z-10 inline-block rounded bg-gray-900 px-2 py-1 text-xs font-medium text-white opacity-0 shadow-sm transition-opacity dark:bg-neutral-700"
-                                                                    role="tooltip">
-                                                                    Edit
-                                                                </span>
-                                                            </a>
-                                                        </div>
-                                                        <div class="hs-tooltip inline-block">
-                                                            <form method="POST"
-                                                                action="{{ route('category.destroy', $row->id) }}"
-                                                                style="display: inline-block;">
-                                                                @csrf
-                                                                @method('delete')
-                                                                <button type="submit"
-                                                                    class="hs-tooltip-toggle inline-flex items-center justify-center gap-x-2 rounded-e-md bg-white px-2 py-1.5 text-sm font-semibold text-gray-800 shadow-sm hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                                        viewBox="0 0 24 24" stroke-width="1.5"
-                                                                        stroke="crimson" class="size-4">
-                                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                                            d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                                                                    </svg>
-                                                                    <span
-                                                                        class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible invisible absolute z-10 inline-block rounded bg-gray-900 px-2 py-1 text-xs font-medium text-white opacity-0 shadow-sm transition-opacity dark:bg-neutral-700"
-                                                                        role="tooltip">
-                                                                        Hapus
-                                                                    </span>
-                                                                </button>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @endif
-                            </tbody>
-                        </table>
-
-                        <!-- End Table -->
-
-                        <!-- Footer -->
-                        <div
-                            class="grid gap-3 border-t border-gray-200 px-6 py-4 dark:border-neutral-700 md:flex md:items-center md:justify-between">
-                            <div class="max-w-sm space-y-3">
-                                <select
-                                    class="block w-full rounded-lg border border-gray-200 px-3 py-2 pe-9 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>5</option>
-                                    <option selected>10</option>
-                                    <option>20</option>
-                                </select>
-                            </div>
-
-                            <div>
-                                <div class="inline-flex gap-x-2">
-                                    <button type="button" onclick="previousPage()"
-                                        class="inline-flex items-center gap-x-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-800 shadow-sm hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800">
-                                        <svg class="size-4 flex-shrink-0" xmlns="http://www.w3.org/2000/svg"
-                                            width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <path d="m15 18-6-6 6-6" />
-                                        </svg>
-                                        Prev
-                                    </button>
-
-                                    @for ($i = 1; $i <= $pagination['lastPage']; $i++)
-                                        <button type="button" onclick="changePage({{ $i }})"
-                                            class="{{ $i == $pagination['currentPage'] ? 'inline-flex items-center gap-x-2 rounded-lg border border-gray-200 px-3 py-2 text-sm font-medium text-black shadow-sm bg-gray-100 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:text-white dark:bg-neutral-800' : 'inline-flex items-center gap-x-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-800 shadow-sm hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800' }}">
-                                            {{ $i }}
+                                <div>
+                                    <div class="inline-flex gap-x-2">
+                                        <button type="button" onclick="previousPage()"
+                                            class="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-800 bg-white border border-gray-200 rounded-lg shadow-sm gap-x-2 hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800">
+                                            <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg"
+                                                width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round">
+                                                <path d="m15 18-6-6 6-6" />
+                                            </svg>
+                                            Prev
                                         </button>
-                                    @endfor
 
-                                    <button type="button" onclick="nextPage()"
-                                        class="inline-flex items-center gap-x-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-800 shadow-sm hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800">
-                                        Next
-                                        <svg class="size-4 flex-shrink-0" xmlns="http://www.w3.org/2000/svg"
-                                            width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <path d="m9 18 6-6-6-6" />
-                                        </svg>
-                                    </button>
+                                        <!-- Page numbers will be dynamically generated -->
+                                        <span id="paginationNumbers" class="space-x-2"></span>
+
+                                        <button type="button" onclick="nextPage()"
+                                            class="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-800 bg-white border border-gray-200 rounded-lg shadow-sm gap-x-2 hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800">
+                                            Next
+                                            <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg"
+                                                width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round">
+                                                <path d="m9 18 6-6-6-6" />
+                                            </svg>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
+                            <!-- End Footer -->
                         </div>
-                        <!-- End Footer -->
                     </div>
                 </div>
             </div>
         </div>
         <!-- End Card -->
     </div>
-    <!-- End Table Section -->
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script>
-        function changePage(page) {
-            var currentUrl = window.location.href;
-            var newUrl = currentUrl.split('?')[0] + '?page=' + page;
-            window.location.href = newUrl;
+        let currentPage = 1;
+        let lastPage = {{ $categories->lastPage() }};
+        let pageSize = {{ $categories->perPage() }};
+
+        // Panggil fetchCategories untuk halaman pertama tanpa query pencarian saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchCategories('', 1, pageSize);
+        });
+
+        // Event listener untuk input pencarian
+        document.getElementById('searchInput').addEventListener('input', function(event) {
+            const query = event.target.value.trim(); // Ambil nilai input dan hilangkan spasi di awal dan akhir
+            fetchCategories(query, 1, pageSize); // Panggil fungsi fetchCategories dengan query baru
+        });
+
+        // Event listener untuk tombol "Tambah Kategori"
+        document.getElementById('addCategoryBtn').addEventListener('click', function(event) {
+            event.preventDefault();
+            const form = document.getElementById('searchForm');
+            const formData = new FormData(form);
+
+            // Submit form pencarian ke route 'category.store'
+            fetch('{{ route('category.store') }}', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Jika sukses, panggil kembali fetchCategories tanpa query
+                        fetchCategories('', 1, pageSize);
+                    } else {
+                        // Handle error jika ada
+                        console.error('Gagal menambahkan kategori.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+
+        // Event listener untuk perubahan ukuran halaman
+        document.getElementById('pageSizeSelect').addEventListener('change', function(event) {
+            pageSize = event.target.value; // Perbarui ukuran halaman
+            fetchCategories('', 1, pageSize); // Muat ulang kategori dengan ukuran halaman baru
+        });
+
+        function fetchCategories(query = '', page = 1, size = pageSize) {
+            const xhr = new XMLHttpRequest();
+            const url = `{{ route('category.index') }}?search=${query}&page=${page}&pageSize=${size}`;
+
+            xhr.open('GET', url, true);
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    const response = JSON.parse(xhr.responseText);
+                    document.getElementById('categoryTableBody').innerHTML = response.html;
+                    updatePagination(response.pagination);
+                    currentPage = response.pagination.currentPage;
+                    lastPage = response.pagination.lastPage;
+                    pageSize = response.pagination.pageSize;
+                }
+            };
+
+            xhr.send();
+        }
+
+        function updatePagination(pagination) {
+            const paginationWrapper = document.getElementById('paginationNumbers');
+            let paginationHtml = '';
+
+            for (let i = 1; i <= pagination.lastPage; i++) {
+                paginationHtml +=
+                    `<button type="button" onclick="changePage(${i})" class="${i === pagination.currentPage ? 'inline-flex items-center gap-x-2 rounded-lg border border-gray-200 px-3 py-2 text-sm font-medium text-black shadow-sm bg-gray-100 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:text-white dark:bg-neutral-800' : 'inline-flex items-center gap-x-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-800 shadow-sm hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800'}">${i}</button>`;
+            }
+
+            paginationWrapper.innerHTML = paginationHtml;
         }
 
         function previousPage() {
-            var page = parseInt("{{ $pagination['currentPage'] }}");
-            if (page > 1) {
-                var newUrl = "{{ $pagination['path'] }}" + '?page=' + (page - 1);
-                window.location.href = newUrl;
+            if (currentPage > 1) {
+                fetchCategories('', currentPage - 1, pageSize);
             }
         }
 
         function nextPage() {
-            var page = parseInt("{{ $pagination['currentPage'] }}");
-            if (page < {{ $pagination['lastPage'] }}) {
-                var newUrl = "{{ $pagination['path'] }}" + '?page=' + (page + 1);
-                window.location.href = newUrl;
+            if (currentPage < lastPage) {
+                fetchCategories('', currentPage + 1, pageSize);
             }
         }
 
-        function confirmDelete(event, id) {
-            event.preventDefault();
-            if (confirm('Apakah Anda yakin ingin menghapus?')) {
-                document.getElementById('deleteForm_' + id).submit();
-            }
+        function changePage(page) {
+            fetchCategories('', page, pageSize);
         }
-
-        $(document).ready(function() {
-            $('#searchInput').on('input', function() {
-                var searchText = $(this).val().toLowerCase();
-                $('#dataTable tbody tr').each(function() {
-                    var rowData = $(this).text().toLowerCase();
-                    if (rowData.indexOf(searchText) === -1) {
-                        $(this).hide();
-                    } else {
-                        $(this).show();
-                    }
-                });
-            });
-        });
     </script>
 @endsection

@@ -4,26 +4,37 @@ namespace App\Http\Controllers;
 
 use App\Models\Categories;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index(Request $request)
-{
-    $perPage = 10; // Jumlah item per halaman
-    $categories = Categories::orderBy('id', 'desc')->paginate($perPage);
+    {
+        $query = Categories::query();
 
-    // Menyediakan data pagination untuk view
-    $pagination = [
-        'currentPage' => $categories->currentPage(),
-        'lastPage' => $categories->lastPage(),
-        'path' => $request->url()
-    ];
+        if ($request->filled('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
 
-    return view('pages.dashboard.category.index', compact('categories', 'pagination'));
-}
+        $pageSize = $request->input('pageSize', 10); // Default to 10 if not provided
+
+        $categories = $query->orderBy('id', 'desc')->paginate($pageSize);
+
+        if ($request->ajax()) {
+            return response()->json([
+                'html' => View::make('partials.category_table', compact('categories'))->render(),
+                'pagination' => [
+                    'currentPage' => $categories->currentPage(),
+                    'lastPage' => $categories->lastPage(),
+                    'path' => $request->url(),
+                    'pageSize' => $pageSize,
+                ]
+            ]);
+        }
+
+        return view('pages.dashboard.category.index', compact('categories'));
+    }
 
 
     /**
@@ -45,11 +56,11 @@ class CategoryController extends Controller
         $category = Categories::create($validatedData);
 
         if ($category) {
-            flash()->option('position','bottom-right')->success('Kategori Ditambahkan!');
-            return redirect()->route('category.index');
+            flash()->option('position', 'bottom-right')->success('Kategori Ditambahkan!');
+        } else {
+            flash()->option('position', 'bottom-right')->error('Ada yang Salah coba lagi nanti!');
         }
 
-        flash()->option('position','bottom-right')->error('Ada yang Salah coba lagi nanti!');
         return redirect()->route('category.index');
     }
 
