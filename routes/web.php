@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
@@ -25,14 +26,8 @@ Route::controller(ProductController::class)->group(function () {
     Route::get('/product/create', 'create')->name('product.create');
 })->name('product');
 
-
-
-Route::get('/login', function () {
-    return view('pages.auth.login');
-});
-Route::get('/register', function () {
-    return view('pages.auth.register');
-});
-Route::get('/forgot', function () {
-    return view('pages.auth.forgot');
-});
+Route::controller(AuthController::class)->group(function () {
+    Route::get('/register', 'registerView')->name('auth.register');
+    Route::post('/register', 'register')->name('register');
+    Route::get('/login', 'login')->name('auth.login');
+})->name('auth');

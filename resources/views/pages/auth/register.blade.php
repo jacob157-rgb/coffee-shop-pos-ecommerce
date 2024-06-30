@@ -2,8 +2,8 @@
 
 @section('auth')
     <!-- ========== MAIN CONTENT ========== -->
-    <main id="content" class="mx-auto w-full max-w-md p-6">
-        <div class="mt-7 rounded-xl border border-gray-200 bg-white shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
+    <main id="content" class="w-full max-w-md p-6 mx-auto">
+        <div class="bg-white border border-gray-200 shadow-sm mt-7 rounded-xl dark:border-neutral-700 dark:bg-neutral-900">
             <div class="p-4 sm:p-7">
                 <div class="text-center">
                     <h1 class="block text-2xl font-bold text-gray-800 dark:text-white">Daftar</h1>
@@ -22,60 +22,60 @@
                         <div class="grid gap-y-4">
                             <!-- Form Group -->
                             <div>
-                                <label for="email" class="mb-2 block text-sm dark:text-white">Email</label>
+                                <label for="email" class="block mb-2 text-sm dark:text-white">Email</label>
                                 <div class="relative">
                                     <input type="email" id="email" name="email"
-                                        class="block w-full rounded-lg border-2 border-gray-200 px-4 py-3 text-sm focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                        class="block w-full px-4 py-3 text-sm border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                         required aria-describedby="email-error">
-                                    <div class="pointer-events-none absolute inset-y-0 end-0 hidden pe-3">
-                                        <svg class="size-5 text-red-500" width="16" height="16" fill="currentColor"
+                                    <div class="absolute inset-y-0 hidden pointer-events-none end-0 pe-3">
+                                        <svg class="text-red-500 size-5" width="16" height="16" fill="currentColor"
                                             viewBox="0 0 16 16" aria-hidden="true">
                                             <path
                                                 d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
                                         </svg>
                                     </div>
                                 </div>
-                                <p class="mt-2 hidden text-xs text-red-600" id="email-error">Please include a valid email
+                                <p class="hidden mt-2 text-xs text-red-600" id="email-error">Please include a valid email
                                     address so we can get back to you</p>
                             </div>
                             <!-- End Form Group -->
 
                             <!-- Form Group -->
                             <div>
-                                <label for="password" class="mb-2 block text-sm dark:text-white">Password</label>
+                                <label for="password" class="block mb-2 text-sm dark:text-white">Password</label>
                                 <div class="relative">
                                     <input type="password" id="password" name="password"
-                                        class="block w-full rounded-lg border-2 border-gray-200 px-4 py-3 text-sm focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                        class="block w-full px-4 py-3 text-sm border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                         required aria-describedby="password-error">
-                                    <div class="pointer-events-none absolute inset-y-0 end-0 hidden pe-3">
-                                        <svg class="size-5 text-red-500" width="16" height="16" fill="currentColor"
+                                    <div class="absolute inset-y-0 hidden pointer-events-none end-0 pe-3">
+                                        <svg class="text-red-500 size-5" width="16" height="16" fill="currentColor"
                                             viewBox="0 0 16 16" aria-hidden="true">
                                             <path
                                                 d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
                                         </svg>
                                     </div>
                                 </div>
-                                <p class="mt-2 hidden text-xs text-red-600" id="password-error">8+ characters required</p>
+                                <p class="hidden mt-2 text-xs text-red-600" id="password-error">8+ characters required</p>
                             </div>
                             <!-- End Form Group -->
 
                             <!-- Form Group -->
                             <div>
-                                <label for="confirm-password" class="mb-2 block text-sm dark:text-white">Ulangi
+                                <label for="confirm-password" class="block mb-2 text-sm dark:text-white">Ulangi
                                     Password</label>
                                 <div class="relative">
                                     <input type="password" id="confirm-password" name="confirm-password"
-                                        class="block w-full rounded-lg border-2 border-gray-200 px-4 py-3 text-sm focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                        class="block w-full px-4 py-3 text-sm border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                         required aria-describedby="confirm-password-error">
-                                    <div class="pointer-events-none absolute inset-y-0 end-0 hidden pe-3">
-                                        <svg class="size-5 text-red-500" width="16" height="16" fill="currentColor"
+                                    <div class="absolute inset-y-0 hidden pointer-events-none end-0 pe-3">
+                                        <svg class="text-red-500 size-5" width="16" height="16" fill="currentColor"
                                             viewBox="0 0 16 16" aria-hidden="true">
                                             <path
                                                 d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
                                         </svg>
                                     </div>
                                 </div>
-                                <p class="mt-2 hidden text-xs text-red-600" id="confirm-password-error">Password does not
+                                <p class="hidden mt-2 text-xs text-red-600" id="confirm-password-error">Password does not
                                     match
                                     the password</p>
                             </div>
@@ -96,8 +96,7 @@
                             <!-- End Checkbox -->
 
                             <button type="submit"
-                                class="inline-flex w-full items-center justify-center gap-x-2 rounded-lg border border-transparent bg-blue-600 px-4 py-3 text-sm font-semibold text-white hover:bg-blue-700 disabled:pointer-events-none disabled:opacity-50">Sign
-                                up</button>
+                                class="inline-flex items-center justify-center w-full px-4 py-3 text-sm font-semibold text-white bg-blue-600 border border-transparent rounded-lg gap-x-2 hover:bg-blue-700 disabled:pointer-events-none disabled:opacity-50">Daftar</button>
                         </div>
                     </form>
                     <!-- End Form -->
@@ -107,8 +106,8 @@
                         atau</div>
 
                     <button type="button"
-                        class="inline-flex w-full items-center justify-center gap-x-2 rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm font-medium text-gray-800 shadow-sm hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800">
-                        <svg class="h-auto w-4" width="46" height="47" viewBox="0 0 46 47" fill="none">
+                        class="inline-flex items-center justify-center w-full px-4 py-3 text-sm font-medium text-gray-800 bg-white border border-gray-200 rounded-lg shadow-sm gap-x-2 hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800">
+                        <svg class="w-4 h-auto" width="46" height="47" viewBox="0 0 46 47" fill="none">
                             <path
                                 d="M46 24.0287C46 22.09 45.8533 20.68 45.5013 19.2112H23.4694V27.9356H36.4069C36.1429 30.1094 34.7347 33.37 31.5957 35.5731L31.5663 35.8669L38.5191 41.2719L38.9885 41.3306C43.4477 37.2181 46 31.1669 46 24.0287Z"
                                 fill="#4285F4" />

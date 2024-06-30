@@ -17,6 +17,11 @@ return new class extends Migration
             $table->double('shipping_cost', 15,2);
             $table->double('total', 15,2);
             $table->timestamps();
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
 
         Schema::create('cart_items', function (Blueprint $table) {
@@ -26,11 +31,6 @@ return new class extends Migration
             $table->unsignedBigInteger('qty');
             $table->double('subtotal', 15,2);
             $table->timestamps();
-
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
 
             $table->foreign('cart_id')
                 ->references('id')
