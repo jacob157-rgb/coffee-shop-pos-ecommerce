@@ -10,6 +10,7 @@
         "laravel/scout": "^10.10",
         "laravel/tinker": "^2.9",
         "php-flasher/flasher-laravel": "^2.0",
+        "socialiteproviders/google": "^4.1",
         "yajra/laravel-datatables-oracle": "^11.0"
     },
     "require-dev": {

@@ -78,7 +78,7 @@
                         class="flex items-center py-3 text-xs text-gray-400 before:me-6 before:flex-1 before:border-t before:border-gray-200 after:ms-6 after:flex-1 after:border-t after:border-gray-200 dark:text-neutral-500 dark:before:border-neutral-600 dark:after:border-neutral-600">
                         atau</div>
 
-                    <button type="button"
+                    <a href="{{ route('auth.google') }}"
                         class="inline-flex items-center justify-center w-full px-4 py-3 text-sm font-medium text-gray-800 bg-white border border-gray-200 rounded-lg shadow-sm gap-x-2 hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800">
                         <svg class="w-4 h-auto" width="46" height="47" viewBox="0 0 46 47" fill="none">
                             <path
@@ -95,7 +95,7 @@
                                 fill="#EB4335" />
                         </svg>
                         Masuk menggunakan Google
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>

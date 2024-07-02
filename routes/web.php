@@ -32,4 +32,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('/login', 'loginView')->name('auth.login');
     Route::post('/login', 'login')->name('login');
     Route::post('/logout', 'logout')->name('logout');
+    // Google Route
+    Route::get('/auth/google', 'providerView')->name('auth.google');
+    Route::get('/auth/google/callback', 'handleProviderCallback')->name('auth.google.callback');
 })->name('auth');
