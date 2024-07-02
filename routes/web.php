@@ -29,5 +29,7 @@ Route::controller(ProductController::class)->group(function () {
 Route::controller(AuthController::class)->group(function () {
     Route::get('/register', 'registerView')->name('auth.register');
     Route::post('/register', 'register')->name('register');
-    Route::get('/login', 'login')->name('auth.login');
+    Route::get('/login', 'loginView')->name('auth.login');
+    Route::post('/login', 'login')->name('login');
+    Route::post('/logout', 'logout')->name('logout');
 })->name('auth');
