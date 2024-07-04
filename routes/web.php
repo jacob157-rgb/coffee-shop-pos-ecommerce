@@ -18,9 +18,10 @@ Route::controller(DashboardController::class)->group(function () {
 Route::controller(CategoryController::class)->group(function () {
     Route::get('/category', 'index')->name('category.index');
     Route::post('/category', 'store')->name('category.store');
-    Route::get('/category/{id}', 'edit')->name('category.edit');
+    Route::put('/category/{id}', 'update')->name('category.update');
     Route::delete('/category/{id}', 'destroy')->name('category.destroy');
 })->name('category');
+
 Route::controller(ProductController::class)->group(function () {
     Route::get('/product', 'index')->name('product.index');
     Route::get('/product/create', 'create')->name('product.create');

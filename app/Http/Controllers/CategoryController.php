@@ -36,41 +36,23 @@ class CategoryController extends Controller
         return view('pages.dashboard.category.index', compact('categories'));
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('pages.category.create');
-    }
-
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|max:255|unique:categories,name'
-        ]);
-        $category = Categories::create($validatedData);
-
-        if ($category) {
+        try {
+            $validatedData = $request->validate([
+                'name' => 'required|max:255|unique:categories,name'
+            ]);
+            Categories::create($validatedData);
             flash()->option('position', 'bottom-right')->success('Kategori Ditambahkan!');
-        } else {
-            flash()->option('position', 'bottom-right')->error('Ada yang Salah coba lagi nanti!');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            flash()->option('position', 'bottom-right')->error('Gagal Menambahkan: ' . $e->getMessage());
+            return redirect()->route('category.index')->withErrors($e->validator)->withInput();
         }
 
         return redirect()->route('category.index');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        $category = Categories::findOrFail($id);
-        return view('pages.category.edit', compact('category'));
     }
 
     /**
@@ -78,14 +60,20 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|max:255|unique:categories,name,' . $id,
-        ]);
+        try {
+            $validatedData = $request->validate([
+                'name' => 'required|max:255|unique:categories,name,' . $id,
+            ]);
 
-        $category = Categories::findOrFail($id);
-        $category->update($validatedData);
+            $category = Categories::findOrFail($id);
+            $category->update($validatedData);
 
-        flash()->option('position','bottom-right')->success('Kategori Diperbarui!');
+            flash()->option('position', 'bottom-right')->success('Kategori Diperbarui!');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            flash()->option('position', 'bottom-right')->error('Gagal Memperbarui: ' . $e->getMessage());
+            return redirect()->route('category.index')->withErrors($e->validator)->withInput();
+        }
+
         return redirect()->route('category.index');
     }
 
@@ -97,7 +85,7 @@ class CategoryController extends Controller
         $category = Categories::findOrFail($id);
         $category->delete();
 
-        flash()->option('position','bottom-right')->success('Kategori Dihapus!');
+        flash()->option('position', 'bottom-right')->success('Kategori Dihapus!');
         return redirect()->route('category.index');
     }
 }

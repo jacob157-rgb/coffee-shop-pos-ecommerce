@@ -32,7 +32,7 @@
                                 </form>
                             </div>
                             <!-- End Input -->
-                            <button id="addCategoryBtn"
+                            <button id="addCategoryBtn" onclick="submitOrModal()" data-hs-overlay="#categoryCreateModal"
                                 class="inline-flex items-center justify-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-600 border border-transparent rounded-md shadow-sm gap-x-2 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-offset-2 dark:focus:ring-offset-neutral-900">
                                 Tambah Kategori
                             </button>
@@ -113,49 +113,108 @@
         </div>
         <!-- End Card -->
     </div>
+    <div id="categoryCreateModal"
+        class="hs-overlay size-full pointer-events-none fixed start-0 top-0 z-[80] hidden overflow-y-auto overflow-x-hidden">
+        <div
+            class="m-3 mt-0 transition-all ease-out opacity-0 hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 sm:mx-auto sm:w-full sm:max-w-lg">
+            <div
+                class="flex flex-col bg-white border shadow-sm pointer-events-auto rounded-xl dark:border-neutral-700 dark:bg-neutral-800 dark:shadow-neutral-700/70">
+                <div class="flex items-center justify-between px-4 py-3 border-b dark:border-neutral-700">
+                    <h3 class="font-bold text-gray-800 dark:text-white">
+                        Tambah Kategori
+                    </h3>
+                    <button type="button"
+                        class="flex items-center justify-center text-sm font-semibold text-gray-800 border border-transparent rounded-full size-7 hover:bg-gray-100 disabled:pointer-events-none disabled:opacity-50 dark:text-white dark:hover:bg-neutral-700"
+                        data-hs-overlay="#categoryCreateModal">
+                        <span class="sr-only">Close</span>
+                        <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M18 6 6 18"></path>
+                            <path d="m6 6 12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <form action="{{ route('category.store') }}" method="post">
+                    @csrf
+                    <div class="p-4 overflow-y-auto">
+                        <label for="input-label" class="block mb-2 text-sm font-medium dark:text-white">Nama
+                            Kategori</label>
+                        <input type="text" id="input-label" name="name"
+                            class="block w-full px-4 py-3 text-sm border-gray-200 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500"
+                            autofocus="">
+                    </div>
+                    <div class="flex items-center justify-end px-4 py-3 border-t gap-x-2 dark:border-neutral-700">
+                        <button type="button"
+                            class="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-800 bg-white border border-gray-200 rounded-lg shadow-sm gap-x-2 hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800"
+                            data-hs-overlay="#categoryCreateModal">
+                            Batal
+                        </button>
+                        <button type="submit"
+                            class="inline-flex items-center px-3 py-2 text-sm font-semibold text-white bg-blue-600 border border-transparent rounded-lg gap-x-2 hover:bg-blue-700 disabled:pointer-events-none disabled:opacity-50">
+                            Tambah
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 
     <script>
+        function editCategory(id) {
+            document.getElementById('category-name-' + id).classList.add('hidden');
+            document.getElementById('category-input-' + id).classList.remove('hidden');
+            document.getElementById('category-actions-' + id).classList.add('hidden');
+            document.getElementById('category-edit-actions-' + id).classList.remove('hidden');
+        }
+
+        function cancelEdit(id) {
+            document.getElementById('category-name-' + id).classList.remove('hidden');
+            document.getElementById('category-input-' + id).classList.add('hidden');
+            document.getElementById('category-actions-' + id).classList.remove('hidden');
+            document.getElementById('category-edit-actions-' + id).classList.add('hidden');
+        }
+
         let currentPage = 1;
         let lastPage = {{ $categories->lastPage() }};
         let pageSize = {{ $categories->perPage() }};
 
-        // Panggil fetchCategories untuk halaman pertama tanpa query pencarian saat halaman dimuat
         document.addEventListener('DOMContentLoaded', function() {
             fetchCategories('', 1, pageSize);
+            submitOrModal()
         });
 
-        // Event listener untuk input pencarian
         document.getElementById('searchInput').addEventListener('input', function(event) {
-            const query = event.target.value.trim(); // Ambil nilai input dan hilangkan spasi di awal dan akhir
-            fetchCategories(query, 1, pageSize); // Panggil fungsi fetchCategories dengan query baru
+            const query = event.target.value.trim();
+            fetchCategories(query, 1, pageSize);
+            submitOrModal();
         });
 
-        // Event listener untuk tombol "Tambah Kategori"
-        document.getElementById('addCategoryBtn').addEventListener('click', function(event) {
-            event.preventDefault();
-            const form = document.getElementById('searchForm');
-            const formData = new FormData(form);
+        function submitOrModal() {
+            let formInput = document.getElementById('searchInput').value.trim();
+            let submitButton = document.getElementById('addCategoryBtn');
 
-            // Submit form pencarian ke route 'category.store'
-            fetch('{{ route('category.store') }}', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => {
-                    if (response.ok) {
-                        // Jika sukses, panggil kembali fetchCategories tanpa query
-                        fetchCategories('', 1, pageSize);
-                    } else {
-                        // Handle error jika ada
-                        console.error('Gagal menambahkan kategori.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        });
+            if (formInput === "") {
+                // Jika input pencarian kosong, tampilkan modal
+                document.getElementById('categoryCreateModal').classList.remove('invisible')
+                submitButton.setAttribute("data-hs-overlay", "#categoryCreateModal");
+                submitButton.onclick = function() {
+                    // Hanya membuka modal jika input kosong
+                    let modal = new HSOverlay(document.getElementById('categoryCreateModal'));
+                    modal.show();
+                };
+            } else {
+                // Jika input tidak kosong, kirimkan form pencarian
+                document.getElementById('categoryCreateModal').classList.add('invisible')
+                submitButton.removeAttribute("data-hs-overlay");
+                submitButton.onclick = function() {
+                    document.getElementById('searchForm').submit();
+                };
+            }
+        }
 
-        // Event listener untuk perubahan ukuran halaman
+
         document.getElementById('pageSizeSelect').addEventListener('change', function(event) {
             pageSize = event.target.value; // Perbarui ukuran halaman
             fetchCategories('', 1, pageSize); // Muat ulang kategori dengan ukuran halaman baru

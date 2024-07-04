@@ -63,6 +63,7 @@ class AuthController extends Controller
             'password' => bcrypt($request->password)
         ]);
 
+        flash()->option('position','bottom-right')->success('Akun Berhasil dibuat, Silahkan Masuk!');
         return redirect('/login');
     }
 
@@ -88,21 +89,39 @@ class AuthController extends Controller
         $userEmail = User::where('email', $googleUser->getEmail())->first();
         $userGId = User::where('google_id', $googleUser->getId())->first();
 
-        dd($userEmail);
+        if ($userEmail) {
+            if ($userEmail->name == null) {
+                $userEmail->update([
+                    'google_id' => $googleUser->getId(),
+                    'name' => $googleUser->getName(),
+                    'email_verified_at' => now()
+                ]);
+            } else {
+                $userEmail->update([
+                    'google_id' => $googleUser->getId(),
+                    'email_verified_at' => now()
+                ]);
+            }
+            Auth::login($userEmail);
+        }
+        elseif ($userGId) {
+            $userGId->update([
+                'email_verified_at' => now()
+            ]);
+            Auth::login($userGId);
+        }
+        else {
+            $user = User::create([
+                'google_id' => $googleUser->getId(),
+                'name' => $googleUser->getName(),
+                'email' => $googleUser->getEmail(),
+                'email_verified_at' => now(),
+                'password' => bcrypt(Str::random(16)),
+                'avatar' => $googleUser->getAvatar()
+            ]);
+            Auth::login($user);
+        }
 
-        // if ($user) {
-        //     Auth::login($user);
-        // } else {
-        //     $user = User::create([
-        //         'google_id' => $googleUser->getId(),
-        //         'name' => $googleUser->getName(),
-        //         'email' => $googleUser->getEmail(),
-        //         'password' => bcrypt(Str::random(16)),
-        //         'avatar' => $googleUser->getAvatar()
-        //     ]);
-        //     Auth::login($user);
-        // }
-
-        return redirect()->intended('/home');
+        return redirect()->intended('/dashboard');
     }
 }
