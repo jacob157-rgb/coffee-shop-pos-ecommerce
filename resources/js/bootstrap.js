@@ -1,5 +1,4 @@
 import axios from "axios";
-import "preline";
 
 window.axios = axios;
 

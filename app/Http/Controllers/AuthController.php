@@ -29,15 +29,19 @@ class AuthController extends Controller
 
     public function login(Request $request): RedirectResponse
     {
-        // dd($request);
-        $credentials = $request->validate([
+        $validator = Validator::make($request->all(), [
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
 
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $credentials = $request->only('email', 'password');
+
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-
             return redirect()->intended('dashboard');
         }
 
@@ -49,9 +53,9 @@ class AuthController extends Controller
     public function register(Request $request): RedirectResponse
     {
         // dd($request);
-        $validator = Validator::make($request->all(),[
-            'email' => ['required','string','email','max:255','unique:users'],
-            'password' => ['required','string','min:8','confirmed']
+        $validator = Validator::make($request->all(), [
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed']
         ]);
 
         // dd($validator);
@@ -63,7 +67,7 @@ class AuthController extends Controller
             'password' => bcrypt($request->password)
         ]);
 
-        flash()->option('position','bottom-right')->success('Akun Berhasil dibuat, Silahkan Masuk!');
+        flash()->option('position', 'bottom-right')->success('Akun Berhasil dibuat, Silahkan Masuk!');
         return redirect('/login');
     }
 
@@ -103,14 +107,12 @@ class AuthController extends Controller
                 ]);
             }
             Auth::login($userEmail);
-        }
-        elseif ($userGId) {
+        } elseif ($userGId) {
             $userGId->update([
                 'email_verified_at' => now()
             ]);
             Auth::login($userGId);
-        }
-        else {
+        } else {
             $user = User::create([
                 'google_id' => $googleUser->getId(),
                 'name' => $googleUser->getName(),
