@@ -24,6 +24,7 @@ Route::controller(CategoryController::class)->group(function () {
 
 Route::controller(ProductController::class)->group(function () {
     Route::get('/product', 'index')->name('product.index');
+    Route::post('/product', 'store')->name('product.store');
     Route::get('/product/create', 'create')->name('product.create');
 })->name('product');
 
