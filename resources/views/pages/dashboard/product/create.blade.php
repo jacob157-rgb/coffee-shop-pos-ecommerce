@@ -36,12 +36,7 @@
                             </label>
                         </div>
                         <div class="sm:col-span-9">
-                            <div class="sm:flex">
-                                <select id="product-category" name="category_id"
-                                    class="block w-full px-4 py-3 text-sm border border-gray-200 rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
-                                    @include('partials.category_dropdown')
-                                </select>
-                            </div>
+                            @include('partials.category_dropdown')
                         </div>
 
                         {{-- Foto Produk --}}
@@ -66,7 +61,7 @@
                                     </svg>
                                     <img class="hidden object-cover w-full h-full rounded-md dropzone-preview" />
                                     <div class="absolute flex space-x-2 dropzone-buttons bottom-2 right-2">
-                                        <button
+                                        <button type="button" data-hs-overlay="#crop-modal"
                                             class="crop-button inline-flex items-center gap-x-2 rounded-full border border-gray-200 bg-white p-1.5 text-sm font-medium text-gray-800 shadow-sm hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -75,7 +70,7 @@
                                                 <path d="M18 22V8a2 2 0 0 0-2-2H2" />
                                             </svg>
                                         </button>
-                                        <button
+                                        <button type="button"
                                             class="delete-button inline-flex items-center gap-x-2 rounded-full border border-gray-200 bg-white p-1.5 text-sm font-medium text-gray-800 shadow-sm hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -101,7 +96,7 @@
                             </label>
                         </div>
                         <div class="sm:col-span-9">
-                            <textarea id="product-description"
+                            <textarea id="product-description" name="desc"
                                 class="block w-full px-4 py-3 text-sm border border-gray-200 rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                 rows="5" placeholder="Masukan Deskripsi Produk"></textarea>
                         </div>
@@ -156,7 +151,7 @@
                                         </svg>
                                         <img class="hidden object-cover w-full h-full rounded-md dropzone-preview" />
                                         <div class="absolute flex space-x-2 dropzone-buttons bottom-2 right-2">
-                                            <button
+                                            <button type="button" data-hs-overlay="#crop-modal"
                                                 class="crop-button inline-flex items-center gap-x-2 rounded-full border border-gray-200 bg-white p-1.5 text-sm font-medium text-gray-800 shadow-sm hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -166,7 +161,7 @@
                                                     <path d="M18 22V8a2 2 0 0 0-2-2H2" />
                                                 </svg>
                                             </button>
-                                            <button
+                                            <button type="button"
                                                 class="delete-button inline-flex items-center gap-x-2 rounded-full border border-gray-200 bg-white p-1.5 text-sm font-medium text-gray-800 shadow-sm hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -215,32 +210,8 @@
                                 <div class="flex items-center justify-between w-full gap-x-1">
                                     <div class="px-3 py-2 grow">
                                         <input name="sku[0][stock]"
-                                            class="w-full p-0 text-gray-800 bg-transparent border-0 focus:ring-0 dark:text-white"
-                                            type="number" value="1" data-hs-input-number-input="">
-                                    </div>
-                                    <div
-                                        class="flex items-center border-gray-200 divide-x divide-gray-200 -gap-y-px border-s dark:divide-neutral-700 dark:border-neutral-700">
-                                        <button type="button"
-                                            class="inline-flex items-center justify-center text-sm font-medium text-gray-800 bg-white size-10 gap-x-2 last:rounded-e-lg hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800"
-                                            data-hs-input-number-decrement="">
-                                            <svg class="size-3.5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg"
-                                                width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path d="M5 12h14"></path>
-                                            </svg>
-                                        </button>
-                                        <button type="button"
-                                            class="inline-flex items-center justify-center text-sm font-medium text-gray-800 bg-white size-10 gap-x-2 last:rounded-e-lg hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800"
-                                            data-hs-input-number-increment="">
-                                            <svg class="size-3.5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg"
-                                                width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path d="M5 12h14"></path>
-                                                <path d="M12 5v14"></path>
-                                            </svg>
-                                        </button>
+                                            class="w-full p-0 text-sm text-gray-800 bg-transparent border-0 focus:ring-0 dark:text-white"
+                                            type="number" placeholder="Masukan Jumlah Stok">
                                     </div>
                                 </div>
                             </div>
@@ -248,13 +219,44 @@
                     </div>
                 </div>
             </div>
-            <div id="croppie-modal" class="fixed inset-0 z-50 items-center justify-center hidden bg-black bg-opacity-50">
-                <div class="p-6 bg-white rounded-lg">
-                    <div id="croppie-container" class="w-full h-full"></div>
-                    <div class="flex justify-end mt-4">
-                        <button id="croppie-cancel"
-                            class="px-4 py-2 mr-2 text-white bg-gray-500 rounded-lg">Cancel</button>
-                        <button id="croppie-save" class="px-4 py-2 text-white bg-blue-500 rounded-lg">Save</button>
+            <div id="crop-modal"
+                class="hs-overlay crop-modal size-full pointer-events-none fixed start-0 top-0 z-[80] hidden overflow-y-auto overflow-x-hidden">
+                <div
+                    class="m-3 mt-0 flex min-h-[calc(100%-3.5rem)] items-center opacity-0 transition-all ease-out hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 sm:mx-auto sm:w-full sm:max-w-lg">
+                    <div
+                        class="flex flex-col w-full bg-white border shadow-sm pointer-events-auto rounded-xl dark:border-neutral-700 dark:bg-neutral-800 dark:shadow-neutral-700/70">
+                        <div class="flex items-center justify-between px-4 py-3 border-b dark:border-neutral-700">
+                            <h3 class="font-bold text-gray-800 dark:text-white">
+                                Crop Gambar
+                            </h3>
+                            <button type="button"
+                                class="flex items-center justify-center text-sm font-semibold text-gray-800 border border-transparent rounded-full size-7 hover:bg-gray-100 disabled:pointer-events-none disabled:opacity-50 dark:text-white dark:hover:bg-neutral-700"
+                                data-hs-overlay="#crop-modal">
+                                <span class="sr-only">Close</span>
+                                <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24"
+                                    height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M18 6 6 18"></path>
+                                    <path d="m6 6 12 12"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="p-4 overflow-y-auto">
+                            <p class="text-gray-800 dark:text-neutral-400">
+                                This is a wider card with supporting text below as a natural lead-in to additional content.
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-end px-4 py-3 border-t gap-x-2 dark:border-neutral-700">
+                            <button type="button"
+                                class="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-800 bg-white border border-gray-200 rounded-lg shadow-sm gap-x-2 hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800"
+                                data-hs-overlay="#crop-modal">
+                                Batal
+                            </button>
+                            <button type="button"
+                                class="inline-flex items-center px-3 py-2 text-sm font-semibold text-white bg-blue-600 border border-transparent rounded-lg gap-x-2 hover:bg-blue-700 disabled:pointer-events-none disabled:opacity-50">
+                                Simpan
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -269,6 +271,15 @@
                 </button>
             </div>
     </form>
+
+    <script>
+        const cropModal = new HSOverlay(document.querySelector('#crop-modal'));
+        const openBtn = document.querySelector('#crop-button');
+
+        openBtn.addEventListener('click', () => {
+            modal.open();
+        });
+    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -432,7 +443,7 @@
                                         </svg>
                                         <img class="hidden object-cover w-full h-full rounded-md dropzone-preview" />
                                         <div class="absolute flex space-x-2 dropzone-buttons bottom-2 right-2">
-                                            <button
+                                            <button data-hs-overlay="#crop-modal"
                                                 class="crop-button inline-flex items-center gap-x-2 rounded-full border border-gray-200 bg-white p-1.5 text-sm font-medium text-gray-800 shadow-sm hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -491,32 +502,8 @@
                             <div class="flex items-center justify-between w-full gap-x-1">
                                 <div class="px-3 py-2 grow">
                                     <input name="sku[${skuCount}][stock]"
-                                        class="w-full p-0 text-gray-800 bg-transparent border-0 focus:ring-0 dark:text-white"
-                                        type="number" value="1" data-hs-input-number-input="">
-                                </div>
-                                <div
-                                    class="flex items-center border-gray-200 divide-x divide-gray-200 -gap-y-px border-s dark:divide-neutral-700 dark:border-neutral-700">
-                                    <button type="button"
-                                        class="inline-flex items-center justify-center text-sm font-medium text-gray-800 bg-white size-10 gap-x-2 last:rounded-e-lg hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800"
-                                        data-hs-input-number-decrement="">
-                                        <svg class="size-3.5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg"
-                                            width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <path d="M5 12h14"></path>
-                                        </svg>
-                                    </button>
-                                    <button type="button"
-                                        class="inline-flex items-center justify-center text-sm font-medium text-gray-800 bg-white size-10 gap-x-2 last:rounded-e-lg hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800"
-                                        data-hs-input-number-increment="">
-                                        <svg class="size-3.5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg"
-                                            width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <path d="M5 12h14"></path>
-                                            <path d="M12 5v14"></path>
-                                        </svg>
-                                    </button>
+                                        class="w-full p-0 text-sm text-gray-800 bg-transparent border-0 focus:ring-0 dark:text-white"
+                                        type="number" placeholder="Masukan Jumlah Stok">
                                 </div>
                             </div>
                         </div>
