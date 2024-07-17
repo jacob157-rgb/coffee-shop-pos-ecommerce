@@ -10,6 +10,10 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/profile', function () {
+    return view('pages.dashboard.user.index');
+});
+
 
 Route::controller(DashboardController::class)->group(function () {
     Route::get('/dashboard', 'index')->name('dashboard.index');
