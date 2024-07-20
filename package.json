@@ -16,6 +16,7 @@
     },
     "dependencies": {
         "cropperjs": "^1.6.2",
-        "preline": "^2.3.0"
+        "preline": "^2.3.0",
+        "sweetalert2": "^11.12.3"
     }
 }

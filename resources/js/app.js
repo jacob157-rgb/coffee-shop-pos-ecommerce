@@ -3,7 +3,28 @@ import "preline";
 import "./../css/app.css";
 import Cropper from "cropperjs";
 import { HSOverlay } from "preline";
+import Swal from "sweetalert2";
 
+window.Swal = Swal;
+// SweetAlert2 confirmation for delete action
+$(document).on("click", ".delete", function (e) {
+    e.preventDefault();
+    let form = $(this).closest("form");
+    Swal.fire({
+        title: "Apakah Anda yakin?",
+        text: "Anda tidak dapat mengembalikanya setelah dihapus!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Ya, hapus!",
+        cancelButtonText: "Batal",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.submit();
+        }
+    });
+});
 // Format IDR
 document.addEventListener("input", (e) => {
     if (e.target.classList.contains("price")) {

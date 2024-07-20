@@ -163,8 +163,8 @@
                         <button id="hs-dropdown-with-header" type="button"
                             class="inline-flex h-[2.375rem] w-[2.375rem] items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 disabled:pointer-events-none disabled:opacity-50 dark:text-white dark:hover:bg-neutral-700">
                             <img class="size-[38px] inline-block rounded-full ring-2 ring-white dark:ring-neutral-800"
-                                src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
-                                alt="Image Description">
+                                src="{{ Str::contains(auth()->user()->avatar, 'https://') ? auth()->user()->avatar : asset('user/avatar/' . basename(auth()->user()->avatar)) }}"
+                                alt="Profil Image">
                         </button>
 
                         <div class="hs-dropdown-menu duration min-w-60 hidden rounded-lg bg-white p-2 opacity-0 shadow-md transition-[opacity,margin] hs-dropdown-open:opacity-100 dark:border dark:border-neutral-700 dark:bg-neutral-900"
