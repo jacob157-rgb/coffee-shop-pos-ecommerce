@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Login</title>
+    <link rel="shortcut icon" href="{{ asset('assets/image/favicon.png') }}" type="image/x-icon">
     {{-- Font --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,7 +43,7 @@
     </script>
 </head>
 
-<body class="bg-gray-100 flex h-screen justify-center items-center dark:bg-neutral-800">
+<body class="flex items-center justify-center h-screen bg-gray-100 dark:bg-neutral-800">
     <!-- ========== MAIN CONTENT ========== -->
     @yield('auth')
     <!-- ========== END MAIN CONTENT ========== -->
