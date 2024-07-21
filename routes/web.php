@@ -31,9 +31,10 @@ Route::controller(ProductController::class)->group(function () {
     Route::post('/product', 'store')->name('product.store');
     Route::get('/product/create', 'create')->name('product.create');
     Route::get('/product/{id}', 'edit')->name('product.edit');
-    Route::put('/product/{id}', 'update')->name('product.update');
+    Route::post('/product/{id}', 'update')->name('product.update');
     Route::put('/product/{id}/isactive', 'updateIsActive')->name('product.updateIsActive');
     Route::delete('/product/{id}', 'destroy')->name('product.destroy');
+    Route::delete('/variant/{id}', 'variantDestroy')->name('variant.destroy');
 })->name('product');
 
 Route::controller(AuthController::class)->group(function () {

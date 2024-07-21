@@ -153,10 +153,10 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::with('productSku')->findOrFail($id);
+        $product = Product::findOrFail($id);
+        $skus = ProductSku::where('product_id', $id)->get();
         $categories = Categories::all();
-        dd($product);
-        return view('pages.dashboard.product.edit', compact('product', 'categories'));
+        return view('pages.dashboard.product.edit', compact('product', 'categories', 'skus'));
     }
 
 
@@ -165,6 +165,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        dd($id, $request);
         DB::beginTransaction();
         try {
             $validatedData = $request->validate([
@@ -287,5 +288,14 @@ class ProductController extends Controller
 
         flash()->option('position', 'bottom-right')->success('Produk Dihapus!');
         return redirect()->route('product.index');
+    }
+
+    public function variantDestroy($id)
+    {
+        $variant = ProductSku::findOrFail($id);
+        $variant->delete();
+
+        flash()->option('position', 'bottom-right')->success('Variant Dihapus!');
+        return redirect()->route('product.edit', $id);
     }
 }
